@@ -1,0 +1,7 @@
+page{
+  background-color: #b3d4db;
+  height: 100%;
+}
+text{
+  font-family: MicroSoft Yahei;
+}
