@@ -1,0 +1,9 @@
+<view>
+  <swiper style='width:100%;height:500rpx;'>
+    <swiper-item>
+      <image src=""></image>
+    </swiper-item>
+    <swiper-item>content2</swiper-item>
+    <swiper-item>content3</swiper-item>
+  </swiper>
+</view>
