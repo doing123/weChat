@@ -70,5 +70,14 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  //绑定跳转到详情事件
+  onPostTap: function(event){
+    var postId = event.currentTarget.dataset.postid;
+    // console.log(postId);
+    wx.navigateTo({
+      url: 'post-detail/post-detail?id=' + postId,
+    })
   }
 })
