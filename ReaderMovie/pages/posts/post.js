@@ -78,6 +78,24 @@ Page({
     // console.log(postId);
     wx.navigateTo({
       url: 'post-detail/post-detail?id=' + postId,
-    })
+    });
+  },
+
+  //头部滚动图片绑定跳转到详情页面
+  // onSwiperItemTap: function(event){
+  //   var postId = event.currentTarget.dataset.postid;
+  //   // console.log(postId);
+  //   wx.navigateTo({
+  //     url: 'post-detail/post-detail?id=' + postId,
+  //   });
+  // },
+
+  //父元素代理
+  onSwiperTap: function(event){
+    // target 指当前点击的组件image， currentTarget 指事件捕获的组件swiper
+    var postId = event.target.dataset.postid;
+    wx.navigateTo({
+      url: 'post-detail/post-detail?id=' + postId,
+    });
   }
 })

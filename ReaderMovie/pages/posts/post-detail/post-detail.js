@@ -1,5 +1,6 @@
 
 var textContents = require('../../../data/posts-data.js');
+var app = getApp();
 
 Page({
   data:{
@@ -9,6 +10,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var globalData = app.globalData;
     var postId = options.id;
     var textDetail = textContents.textContent[postId];
     // console.log(textDetail);
@@ -31,6 +33,34 @@ Page({
       postsCollected[postId] = false;
       wx.setStorageSync('postsCollected', postsCollected);
     }
+
+    //监听音乐播放/暂停
+    //判断音乐是否播放及当前播放的音乐ID是否匹配
+    if (app.globalData.g_isPlayingMusic && app.globalData.g_currentMusicPostId === postId){
+      this.setData({
+        isPlayingMusic:true
+      });
+    }
+    this.setMusicMonitor();
+  },
+
+  //封装音乐控制函数
+  setMusicMonitor: function(){
+    var that = this;
+    wx.onBackgroundAudioPlay(function () {
+      that.setData({
+        isPlayingMusic: true
+      });
+      app.globalData.g_isPlayingMusic = true;
+      app.globalData.g_currentMusicPostId = that.data.currentPostId;
+    });
+    wx.onBackgroundAudioPause(function () {
+      that.setData({
+        isPlayingMusic: false
+      });
+      app.globalData.g_isPlayingMusic = false;
+      app.globalData.g_currentMusicPostId = null;
+    });
   },
 
   //绑定收藏事件
