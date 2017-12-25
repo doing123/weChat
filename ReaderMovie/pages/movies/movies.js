@@ -4,7 +4,10 @@ Page({
   data:{
     inTheaters:{}, // 避免页面绑定初始化报错
     comingSoon:{},
-    top250:{}
+    top250:{},
+    searchResult:{},
+    containerShow: true,
+    searchPanelShow: false
   },
 
   /**
@@ -30,6 +33,14 @@ Page({
     });
   },
 
+  //跳转到电影详情页面
+  onMovieTap:function(event){
+    var movieId = event.currentTarget.dataset.movieid;
+    wx.navigateTo({
+      url: 'movie-detail/movie-detail?id=' + movieId
+    });
+  },
+
   getMovieListData: function (url, settedKey, categoryTitle) {
     var that = this;
     wx.request({
@@ -47,6 +58,29 @@ Page({
         console.log('failed');
       }
     });
+  },
+
+  //关闭搜索
+  onCancelImgTap: function(){
+    this.setData({
+      containerShow: true,
+      searchPanelShow: false,
+      // searchResult:{}
+    });
+  },
+
+  //获取焦点
+  onBindFocus: function(options){
+    this.setData({
+      containerShow: false,
+      searchPanelShow: true
+    });
+  },
+
+  onBindChange:function(event){
+    var text = event.detail.value;
+    var searchUrl = app.globalData.doubanBase + "/v2/movie/search?q=" + text;
+    this.getMovieListData(searchUrl, 'searchResult', '');
   },
 
   //处理请求回来的数据

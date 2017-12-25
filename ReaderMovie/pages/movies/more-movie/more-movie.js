@@ -104,5 +104,13 @@ Page({
     wx.setNavigationBarTitle({
       title: this.data.navigateTitle,
     });
+  },
+
+  //跳转到电影详情页面
+  onMovieTap: function (event) {
+    var movieId = event.currentTarget.dataset.movieid;
+    wx.navigateTo({
+      url: '../movie-detail/movie-detail?id=' + movieId
+    });
   }
 });
