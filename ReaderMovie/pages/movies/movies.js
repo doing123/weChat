@@ -1,11 +1,11 @@
 var util = require("../../utils/utils.js");
 var app = getApp();
 Page({
-  data:{
-    inTheaters:{}, // 避免页面绑定初始化报错
-    comingSoon:{},
-    top250:{},
-    searchResult:{},
+  data: {
+    inTheaters: {}, // 避免页面绑定初始化报错
+    comingSoon: {},
+    top250: {},
+    searchResult: {},
     containerShow: true,
     searchPanelShow: false
   },
@@ -26,7 +26,7 @@ Page({
     this.getMovieListData(top250Url, "top250", "豆瓣Top250");
   },
 
-  onMoreTap: function(event){
+  onMoreTap: function (event) {
     var category = event.currentTarget.dataset.category;
     wx.navigateTo({
       url: 'more-movie/more-movie?category=' + category
@@ -34,7 +34,7 @@ Page({
   },
 
   //跳转到电影详情页面
-  onMovieTap:function(event){
+  onMovieTap: function (event) {
     var movieId = event.currentTarget.dataset.movieid;
     wx.navigateTo({
       url: 'movie-detail/movie-detail?id=' + movieId
@@ -61,7 +61,7 @@ Page({
   },
 
   //关闭搜索
-  onCancelImgTap: function(){
+  onCancelImgTap: function () {
     this.setData({
       containerShow: true,
       searchPanelShow: false,
@@ -70,14 +70,14 @@ Page({
   },
 
   //获取焦点
-  onBindFocus: function(options){
+  onBindFocus: function (options) {
     this.setData({
       containerShow: false,
       searchPanelShow: true
     });
   },
 
-  onBindChange:function(event){
+  onBindChange: function (event) {
     var text = event.detail.value;
     var searchUrl = app.globalData.doubanBase + "/v2/movie/search?q=" + text;
     this.getMovieListData(searchUrl, 'searchResult', '');

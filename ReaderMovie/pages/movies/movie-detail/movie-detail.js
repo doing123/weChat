@@ -1,5 +1,5 @@
 // pages/movies/movie-detail/movie-detail.js
-import {Movie} from 'class/Movie.js';
+import { Movie } from 'class/Movie.js';
 var app = getApp();
 Page({
 
@@ -33,7 +33,7 @@ Page({
   },
 
   //查看图片
-  viewMoviePostImg: function(event){
+  viewMoviePostImg: function (event) {
     var src = event.currentTarget.dataset.src;
     wx.previewImage({
       current: src, // 当前显示图片的http链接

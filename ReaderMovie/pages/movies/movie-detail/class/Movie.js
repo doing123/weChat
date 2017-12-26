@@ -46,4 +46,4 @@ class Movie {
   }
 }
 
-export {Movie};
+export { Movie };
