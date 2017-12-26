@@ -46,7 +46,7 @@ Page({
   },
  
  //滚动到底部更多
-  onScrollLower: function(options){
+  onReachBottom: function(options){
     var nextUrl = this.data.requestUrl + "?start=" + this.data.totalCount + "&count=20";
     util.http(nextUrl, this.processDoubanData);
 
