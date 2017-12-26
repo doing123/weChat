@@ -7,11 +7,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    navigateTitle:'',
+    navigateTitle: '',
     movies: '',
-    requestUrl:'',
-    totalCount:0,
-    isEmpty:true
+    requestUrl: '',
+    totalCount: 0,
+    isEmpty: true
   },
 
   /**
@@ -20,11 +20,11 @@ Page({
   onLoad: function (options) {
     var category = options.category;
     this.setData({
-      navigateTitle:category
+      navigateTitle: category
     });
 
     var dataUrl = '';
-    switch (category){
+    switch (category) {
       case "正在热映":
         dataUrl = app.globalData.doubanBase +
           "/v2/movie/in_theaters";
@@ -44,9 +44,9 @@ Page({
     });
     util.http(dataUrl, this.processDoubanData);
   },
- 
- //滚动到底部更多
-  onReachBottom: function(options){
+
+  //滚动到底部更多
+  onReachBottom: function (options) {
     var nextUrl = this.data.requestUrl + "?start=" + this.data.totalCount + "&count=20";
     util.http(nextUrl, this.processDoubanData);
 
@@ -56,17 +56,17 @@ Page({
 
   //TODO:scroll-view  下拉刷新不可用
   //下拉刷新
-  onPullDownRefresh: function(){
+  onPullDownRefresh: function () {
     var refreshUrl = this.data.requestUrl + "?start=0&count=20";
     this.setData({
-      movies:{},
-      isEmpty:true
+      movies: {},
+      isEmpty: true
     })
     util.http(refreshUrl, this.processDoubanData);
     wx.showNavigationBarLoading();
   },
 
-  processDoubanData: function (moviesDouban){
+  processDoubanData: function (moviesDouban) {
     var movies = [];
     for (var idx in moviesDouban.subjects) {
       var subject = moviesDouban.subjects[idx];
@@ -85,9 +85,9 @@ Page({
     }
 
     var totalMovies;
-    if(!this.data.isEmpty){
+    if (!this.data.isEmpty) {
       totalMovies = this.data.movies.concat(movies);
-    }else{
+    } else {
       totalMovies = movies;
       this.data.isEmpty = false;
     }
@@ -100,7 +100,7 @@ Page({
     wx.stopPullDownRefresh();
   },
 
-  onReady: function(options){
+  onReady: function (options) {
     wx.setNavigationBarTitle({
       title: this.data.navigateTitle,
     });
